@@ -4,6 +4,7 @@ const cors = require('cors')
 const app = express()
 
 app.use(cors())
+app.use(express.static('dist'))
 app.use(express.json())
 
 // esimerkki morganin dokumentaatiosta: morgan.token('type', function (req, res) { return req.headers['content-type'] })

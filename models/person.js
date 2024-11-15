@@ -23,10 +23,11 @@ const personSchema = new mongoose.Schema({
   number: {
     type: String,
     required: [true, 'Number is required'],
-    minlength: [8, 'Number must be at least 8 digits long'],
+    minlength: [8, 'Number must be at least 8 characters long'],
     validate: {
       validator: (num) => {
-        return /^\d{2,3}-\d{7,}$/.test(num)
+        // minlength 8 merkkiä täyttyy, jos 2 + '-' + 5 TAI 3 + '-' + 4
+        return /^(\d{2}-\d{5,}|\d{3}-\d{4,})$/.test(num)
       },
       message: number => `${number.value} is not in correct format, please try again`
     }

@@ -1,7 +1,3 @@
-
-// TODO: seraavaksi 3.21
-
-
 require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
@@ -127,14 +123,13 @@ app.post('/api/persons', (request, response, next) => {
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
-  const body = request.body
+  const { name, number } = request.body
 
-  const person = {
-    name: body.name,
-    number: body.number,
-  }
-
-  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+  Person.findByIdAndUpdate(
+    request.params.id, 
+    { name, number }, 
+    { new: true, runValidators: true, context: 'save' }
+  )
     .then(updatedPerson => {
       response.json(updatedPerson)
     })

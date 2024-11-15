@@ -18,18 +18,18 @@ const Person = mongoose.model('Person', personSchema)
 
 // Loogiikka joka riippuu komentorivin argumenttien määrästä: 5 = salasana, nimi ja numero annettu, 3 = pelkkä salasana
 if (process.argv.length === 5) {
-  newName = process.argv[3]
-  newNumber = process.argv[4]
+  const newName = process.argv[3]
+  const newNumber = process.argv[4]
 
   const person = new Person ({
     name: newName,
     number: newNumber,
   })
 
-  person.save().then(result => {
+  person.save().then(() => {
     console.log(`added ${newName} number ${newNumber} to phonebook`)
     mongoose.connection.close()
-  }) 
+  })
 
 } else if (process.argv.length === 3) {
   Person.find({}).then(result => {
